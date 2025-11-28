@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presento - Найди идеальный подарок</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body class="light-theme">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Presento</div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-section="home">Главная</a></li>
+                        <li><a href="#" class="nav-link" data-section="ai-search">AI Поиск</a></li>
+                        <li><a href="#" class="nav-link" data-section="gifts">Рекомендации</a></li>
+                        <li><a href="#" class="nav-link" data-section="map">Карта магазинов</a></li>
+                    </ul>
+                </nav>
+                <div class="header-right">
+                    <div class="theme-selector">
+                        <button class="theme-btn active" data-theme="light">Девушке</button>
+                        <button class="theme-btn" data-theme="dark">Парню</button>
+                    </div>
+                    <div class="profile-icon" id="profile-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Главная страница -->
+            <section id="home" class="section active">
+                <h1 class="page-title">Не промохнись с выбором!</h1>
+                
+                <!-- Блок описания платформы -->
+                <div class="card platform-description">
+                    <h2>Presento - ваш помощник в выборе подарков</h2>
+                    <p>Мы создали платформу, которая помогает быстро и легко найти идеальный подарок для любого человека и случая.</p>
+                    <p>Больше не нужно ломать голову над вопросом "Что подарить?" - Presento предложит вам лучшие варианты!</p>
+                    <div class="action-buttons">
+                        <button class="primary-btn start-btn">Начать поиск подарка</button>
+                    </div>
+                </div>
+
+                <!-- Surprise Box на главной -->
+                <div class="card surprise-box-main">
+                    <h2>🎁 Surprise Box</h2>
+                    <p>Не знаете что выбрать? Попробуйте Surprise Box! Мы соберем для вас уникальный набор подарков по вашему бюджету.</p>
+                    
+                    <div class="price-options">
+                        <div class="price-option" data-price="500">
+                            <div class="price-badge">500 ₽</div>
+                            <p>Мини-сюрприз</p>
+                            <button class="select-price">Выбрать</button>
+                        </div>
+                        <div class="price-option" data-price="1500">
+                            <div class="price-badge">1 500 ₽</div>
+                            <p>Стандартный бокс</p>
+                            <button class="select-price">Выбрать</button>
+                        </div>
+                        <div class="price-option" data-price="3000">
+                            <div class="price-badge">3 000 ₽</div>
+                            <p>Премиум сюрприз</p>
+                            <button class="select-price">Выбрать</button>
+                        </div>
+                        <div class="price-option" data-price="5000">
+                            <div class="price-badge">5 000 ₽</div>
+                            <p>Эксклюзивный набор</p>
+                            <button class="select-price">Выбрать</button>
+                        </div>
+                        <div class="price-option" data-price="10000">
+                            <div class="price-badge">10 000 ₽</div>
+                            <p>Подарок мечты</p>
+                            <button class="select-price">Выбрать</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Личный кабинет -->
+            <section id="profile" class="section">
+                <h1 class="page-title">Личный кабинет</h1>
+                <div class="card">
+                    <h2>Мой профиль</h2>
+                    <div class="form-group">
+                        <label for="fullname">ФИО</label>
+                        <input type="text" id="fullname" value="Иванова Анна Сергеевна">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="anna@example.com">
+                    </div>
+                    <button id="save-profile">Сохранить изменения</button>
+                </div>
+
+                <div class="card">
+                    <h2>Мой вишлист</h2>
+                    <p>Добавляйте сюда подарки, которые вы хотите получить</p>
+                    
+                    <div class="form-group">
+                        <label for="wish-name">Название подарка</label>
+                        <input type="text" id="wish-name" placeholder="Например, Умные часы">
+                    </div>
+                    <div class="form-group">
+                        <label for="wish-image">Ссылка на изображение</label>
+                        <input type="text" id="wish-image" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="wish-link">Ссылка на магазин</label>
+                        <input type="text" id="wish-link" placeholder="https://example.com/product">
+                    </div>
+                    <button id="add-wish">Добавить в вишлист</button>
+
+                    <div class="wishlist-items" id="wishlist-container">
+                        <!-- Вишлист будет заполняться динамически -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Поиск -->
+            <section id="ai-search" class="section">
+                <h1 class="page-title">AI Поиск подарков</h1>
+                <div class="ai-search-container">
+                    <div class="card">
+                        <h2>Опишите, кому вы ищете подарок</h2>
+                        <p>Наш искусственный интеллект предложит персонализированные варианты подарков</p>
+                        
+                        <div class="form-group">
+                            <label for="recipient-age">Возраст получателя</label>
+                            <input type="number" id="recipient-age" min="1" max="100" placeholder="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="recipient-gender">Пол получателя</label>
+                            <select id="recipient-gender">
+                                <option value="male">Мужской</option>
+                                <option value="female">Женский</option>
+                                <option value="other">Другой</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="recipient-interests">Интересы и хобби</label>
+                            <textarea id="recipient-interests" rows="3" placeholder="Например: чтение, путешествия, спорт, кулинария"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="occasion">Повод для подарка</label>
+                            <input type="text" id="occasion" placeholder="Например: день рождения, годовщина, новый год">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Бюджет (руб.)</label>
+                            <input type="number" id="budget" placeholder="5000">
+                        </div>
+                        
+                        <button id="ai-search-btn">Найти идеи подарков</button>
+                    </div>
+
+                    <div class="ai-response" id="ai-response" style="display: none;">
+                        <h3>AI рекомендует:</h3>
+                        <div id="ai-suggestions">
+                            <!-- AI предложения будут здесь -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Рекомендации подарков -->
+            <section id="gifts" class="section">
+                <h1 class="page-title">Рекомендации подарков</h1>
+                <div class="gift-recommendations" id="gifts-container">
+                    <!-- Подарки будут заполняться динамически -->
+                </div>
+            </section>
+
+            <!-- Карта магазинов -->
+            <section id="map" class="section">
+                <h1 class="page-title">Магазины Краснодара</h1>
+                <div class="card">
+                    <div class="map-controls">
+                        <input type="text" id="search-product" placeholder="Введите товар (например: кружка)" class="search-input">
+                        <button id="search-on-map">Найти на карте</button>
+                    </div>
+                    <div id="map-container"></div>
+                </div>
+            </section>
+
+            <!-- Страница подарка -->
+            <section id="gift-detail" class="section">
+                <h1 class="page-title" id="gift-detail-title"></h1>
+                <div class="gift-detail">
+                    <img id="gift-detail-image" src="" alt="">
+                    <div class="gift-detail-content">
+                        <div>
+                            <h2>Описание</h2>
+                            <p id="gift-detail-description"></p>
+                            <div class="price" id="gift-detail-price"></div>
+                        </div>
+                        <div class="delivery-form">
+                            <h2>Доставка</h2>
+                            <div class="form-group">
+                                <label for="delivery-address">Адрес доставки</label>
+                                <input type="text" id="delivery-address" placeholder="Введите адрес доставки">
+                            </div>
+                            <div class="form-group">
+                                <label for="delivery-date">Желаемая дата доставки</label>
+                                <input type="date" id="delivery-date">
+                            </div>
+                            <button id="order-btn">Заказать с доставкой</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Presento &copy; 2023 - Помогаем найти идеальный подарок</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
